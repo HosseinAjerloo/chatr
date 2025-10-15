@@ -8,14 +8,15 @@
             </p>
         </div>
         @foreach($operators as $operator)
-            @if($operator->chargeCode()->count()<=50)
+            @if($operator->chargeCode()->where('used',0)->count()<=50)
                 <div
                     class="p-3 rounded-xl space-y-1.5 w-full bg-fdf5e1 border-1 border-f79145 xl:w-[24%] sm:w-[49%] mb-2">
                     <div class="flex items-center space-x-2 w-full">
                         <img src="{{ asset('chartFront/assets/icons/Asset6.svg') }}" alt="" class="w-6"/>
                         <p class="font-semibold">هشدار {{$operator->name}}</p>
                     </div>
-                    <p class="font-semibold">فقط {{$operator->chargeCode()->count()}} عدد مانده است ، لطفا شارژ کنید</p>
+                    <p class="font-semibold">فقط {{$operator->chargeCode()->where('used',0)->count()}} عدد مانده است ،
+                        لطفا شارژ کنید</p>
                 </div>
             @endif
         @endforeach
@@ -42,16 +43,16 @@
             </div>
         </div>
         @foreach($operators as $operator)
-        <div
-            class="text-white p-3 rounded-xl space-y-1.5 @if($operator->id==1) bg-linear-100 from-f36c31 to-eea75f to-60 @else bg-linear-100 from-079567 to-61c2a1 to-60 @endif  border-1 border-dcdde1 w-full sm:w-[49%] w-[19%] xl:w-[19%] mb-2 shadow shadow-sm shadow-black/50">
-            <div class="flex items-center text-sm space-x-2 w-full">
-                <img src="{{ asset('chartFront/assets/icons/Asset5.svg') }}" alt="" class="w-6"/>
-                <p>موجودی {{$operator->name??''}}</p>
+            <div
+                class="text-white p-3 rounded-xl space-y-1.5 @if($operator->id==1) bg-linear-100 from-f36c31 to-eea75f to-60 @else bg-linear-100 from-079567 to-61c2a1 to-60 @endif  border-1 border-dcdde1 w-full sm:w-[49%] w-[19%] xl:w-[19%] mb-2 shadow shadow-sm shadow-black/50">
+                <div class="flex items-center text-sm space-x-2 w-full">
+                    <img src="{{ asset('chartFront/assets/icons/Asset5.svg') }}" alt="" class="w-6"/>
+                    <p>موجودی {{$operator->name??''}}</p>
+                </div>
+                <div class="font-semibold text-2xl flex items-center justify-center">
+                    <p class="tracking-[20px]">{{$operator->chargeCode()->where('used',0)->count()}} عدد</p>
+                </div>
             </div>
-            <div class="font-semibold text-2xl flex items-center justify-center">
-                <p class="tracking-[20px]">{{$operator->chargeCode()->count()}} عدد</p>
-            </div>
-        </div>
         @endforeach
 
     </article>
@@ -110,166 +111,35 @@
                     <th scope="col" class="px-6 py-3">تاريخ /ساعت (شمسی)</th>
                     <th scope="col" class="px-6 py-3">شماره</th>
                     <th scope="col" class="px-6 py-3">اپراتور</th>
+                    <th scope="col" class="px-6 py-3">ورودی</th>
                     <th scope="col" class="px-6 py-3">خروجی</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        00:27 1404-07-07
-                    </th>
-                    <td class="px-6 py-4">09186414452</td>
-                    <td class="px-6 py-4">همراه اول</td>
-                    <td class="px-6 py-4 text-left">
-                        مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                        تشکر! گروه بازرگانی چتر
-                    </td>
-                </tr>
+                @foreach($sms as $pm)
+                    <tr
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{\Morilog\Jalali\Jalalian::forge($pm->create)->format('Y/m/d H:i:s')}}
+                        </th>
+                        <td class="px-6 py-4">{{$pm->mobile}}</td>
+
+                        <td class="px-6 py-4">
+                            @if(getOperator($pm->mobile))
+                                {{getOperator($pm->mobile)->operator->name??'-'}}
+
+                            @else
+                                --
+                            @endif
+
+                        </td>
+                        <td class="px-6 py-4 text-left">
+                            مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
+                            تشکر! گروه بازرگانی چتر
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

@@ -50,9 +50,8 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
 
 
 });
-//Route::get('',function (){
-//
-//});
+Route::get('test',function (){
+});
 
 
 

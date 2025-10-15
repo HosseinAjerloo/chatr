@@ -9,4 +9,8 @@ class Prefix extends Model
 {
     use SoftDeletes;
     protected $fillable=['prefix_num','operator_id','status'];
+    public function operator()
+    {
+        return $this->belongsTo(Operator::class,'operator_id');
+    }
 }

@@ -25,7 +25,7 @@ class SendSMS implements ShouldQueue
      */
     public function handle(): void
     {
-        $today=\Morilog\Jalali\Jalalian::forge('today')->format('Y/m/d h:i:s');
+        $today=\Morilog\Jalali\Jalalian::forge('now')->format('Y/m/d H:i:s');
         $response = \Illuminate\Support\Facades\Http::withHeaders([
             'ACCEPT' => 'application/json',
             'X-API-KEY' => 'LzJMD298QvvX8YSnrEECHEdewoi3qgcpFMbsKGAFwiYBO4TC'
@@ -66,8 +66,8 @@ class SendSMS implements ShouldQueue
                             {
                                 if ($giftCode->used==0)
                                 {
-                                    $prefixUser=substr($item['mobile'],0,3);
-                                    $prefix=\App\Models\Prefix::where('prefix_num',$prefixUser)->first();
+
+                                    $prefix= getOperator($item['mobile']);
 
                                     if ($prefix)
                                     {
@@ -77,18 +77,21 @@ class SendSMS implements ShouldQueue
                                             sendSMS($message,$item['mobile']);
                                             $charge->update(['used'=>1,'phone_used'=>$item['mobile']]);
                                             $giftCode->update(['used'=>1,'phone_used'=>$item['mobile']]);
+                                            $item['operator_id']=$prefix->operator_id;
                                         }
 
                                     }
                                 }else{
-                                    $message="مشتری گرامی کد شارژ شما تکراری ".PHP_EOL."باتشکر گروه بازرگانی چتر";
+                                    $message="مشتری گرامی کد شارژ شما تکراری میباشد  ".PHP_EOL."باتشکر گروه بازرگانی چتر";
                                     sendSMS($message,$item['mobile']);
                                 }
                             }
 
 
+                    }else{
+
+                        $sms=\App\Models\Sms::create($item);
                     }
-                    $sms=\App\Models\Sms::create($item);
                 }
             }
 

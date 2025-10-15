@@ -9,5 +9,8 @@ class Sms extends Model
 {
     use SoftDeletes;
     public $table='smses';
-    protected $fillable=['mobile','messageText','number','type'];
+    protected $fillable=['mobile','messageText','number','type','operator_id'];
+    public function operator(){
+        return $this->belongsTo(Operator::class,'operator_id');
+    }
 }

@@ -22,3 +22,9 @@ function sendSMS($message='',$mobile='091864144452')
         'Mobiles' => [$mobile],
     ]);
 }
+function getOperator($mobile)
+{
+    $prefixUser=substr($mobile,0,3);
+    $prefix=\App\Models\Prefix::where('prefix_num',$prefixUser)->first();
+    return $prefix;
+}
