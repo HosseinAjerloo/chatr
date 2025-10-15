@@ -1,0 +1,17 @@
+<?php
+function sendSMS($message='',$mobile='091864144452')
+{
+    $message=$message . PHP_EOL.'لغو11';
+        $response = \Illuminate\Support\Facades\Http::withHeaders([
+        'Accept' => 'text/plain',
+        'X-API-KEY' => 'gAVlVd4hrVs5Q2jKBifSc8xXUO4WJNfy1QbVsQYPP1KaRwpv',
+        'Content-Type' => 'application/json',
+
+    ])->POST('https://api.sms.ir/v1/send/likeToLike', [
+        'lineNumber' => '10008218',
+        'Password' => 'gAVlVd4hrVs5Q2jKBifSc8xXUO4WJNfy1QbVsQYPP1KaRwpv',
+        'Line' => "10008218",
+        'MessageTexts' => [$message],
+        'Mobiles' => [$mobile],
+    ]);
+}

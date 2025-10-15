@@ -1,0 +1,114 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+
+@font-face {
+    src: url("../../public/chartFront/assets/fonts/Yekan-Bakh-FaNum-05-Medium.ttf");
+    font-family: 'yekan';
+}
+@theme {
+    --color-eaecf6: #eaecf6;
+    --color-fdfdfd: #fdfdfd;
+    --color-edeff8: #edeff8;
+    --color-dcdde1: #dcdde1;
+    --color-fdf5e1: #fdf5e1;
+    --color-f79145: #f79145;
+    --color-2e799a: #2e799a;
+    --color-1f978c: #1f978c;
+    --color-ef3f5d: #ef3f5d;
+    --color-f1778b: #f1778b;
+    --color-079567: #079567;
+    --color-61c2a1: #61c2a1;
+    --color-f36c31: #f36c31;
+    --color-eea75f: #eea75f;
+    --color-079567: #079567;
+    --color-61c2a1: #61c2a1;
+    --color-268ec8: #268ec8;
+    --color-012b38: #012b38;
+    --color-3c63ad: #3c63ad;
+    --color-0db1dc: #0db1dc;
+    --color-3fb54a: #3fb54a;
+    --color-122e4d: #122e4d;
+    --color-3a5270: #3a5270;
+    --color-a3a9d4: #a3a9d4;
+    --color-d8d8d8: #d8d8d8;
+}
+body,*{
+    font-family: 'yekan';
+    direction: rtl;
+}
+.overflow-y-scroll::-webkit-scrollbar {
+    width: 3px;
+}
+.overflow-y-scroll::-webkit-scrollbar-track {
+    background: white; /* پس‌زمینه اسکرولبار */
+}
+.overflow-y-scroll::-webkit-scrollbar-thumb {
+    background:  white;
+    border-radius: 4px;
+}
+.overflow-y-scroll::-webkit-scrollbar-thumb:hover {
+    background: white;
+}
+@utility eleHover {
+    @apply hover:bg-012b38 cursor-pointer
+}
+@utility activePage {
+    @apply bg-012b38 text-white
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.hambergerMenu{
+    transition: all .5s ease-in-out;
+    animation: hamberger .5s ease-in-out;
+    animation-delay: calc(var(--i)*0.1s);
+}
+
+/* استایل کادر اصلی Select2 */
+.select2-container .select2-selection--single {
+    background-color: transparent !important;
+    border: none !important;
+    height: 40px !important;
+    box-shadow: none !important;
+}
+
+/* متن انتخاب‌شده */
+.select2-selection__rendered {
+    color: #fff !important; /* اگر پس‌زمینه تیره داری */
+    line-height: 40px !important;
+    padding-right: 10px !important;
+}
+
+/* فلش (آیکون باز کردن) */
+.select2-selection__arrow {
+    top: 8px !important;
+    left: 10px !important;
+}
+
+/* استایل لیست بازشونده (Dropdown) */
+.select2-container--default .select2-results > .select2-results__options {
+    background-color: #012b38 !important;
+    color: #fff !important;
+    text-align: right !important;
+}
+
+/* حالت hover روی گزینه‌ها */
+.select2-container--default .select2-results__option--highlighted {
+    background-color: #024a5c !important;
+    color: #fff !important;
+}
+
+/* حذف حاشیه و سایه در حالت فوکوس */
+.select2-container--default .select2-selection--single:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
