@@ -62,22 +62,28 @@ class SendSMS implements ShouldQueue
                                 }
                             }
 
-                            if ($giftCode->used==0)
+                            if ($giftCode)
                             {
-                                $prefixUser=substr($item['mobile'],0,3);
-                                $prefix=\App\Models\Prefix::where('prefix_num',$prefixUser)->first();
-
-                                if ($prefix)
+                                if ($giftCode->used==0)
                                 {
-                                    $charge=\App\Models\ChargeCode::where('used',0)->where('operator_id',$prefix->operator_id)->first();
-                                    $message="مشتری گرامی کد شارژ شما ".PHP_EOL.$charge->copen.PHP_EOL."میباشد باتشکر گروه بازرگانی چتر";
+                                    $prefixUser=substr($item['mobile'],0,3);
+                                    $prefix=\App\Models\Prefix::where('prefix_num',$prefixUser)->first();
+
+                                    if ($prefix)
+                                    {
+                                        $charge=\App\Models\ChargeCode::where('used',0)->where('operator_id',$prefix->operator_id)->first();
+                                        if ($charge){
+                                            $message="مشتری گرامی کد شارژ شما ".PHP_EOL.$charge->copen.PHP_EOL."میباشد باتشکر گروه بازرگانی چتر";
+                                            sendSMS($message,$item['mobile']);
+                                            $charge->update(['used'=>1,'phone_used'=>$item['mobile']]);
+                                            $giftCode->update(['used'=>1,'phone_used'=>$item['mobile']]);
+                                        }
+
+                                    }
+                                }else{
+                                    $message="مشتری گرامی کد شارژ شما تکراری ".PHP_EOL."باتشکر گروه بازرگانی چتر";
                                     sendSMS($message,$item['mobile']);
-                                    $charge->update(['used'=>1,'phone_used'=>$item['mobile']]);
-                                    $giftCode->upfate(['used'=>1,'phone_used'=>$item['mobile']]);
                                 }
-                            }else{
-                                $message="مشتری گرامی کد شارژ شما تکراری ".PHP_EOL."باتشکر گروه بازرگانی چتر";
-                                sendSMS($message,$item['mobile']);
                             }
 
 

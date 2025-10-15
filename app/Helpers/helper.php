@@ -1,6 +1,13 @@
 <?php
 function sendSMS($message='',$mobile='091864144452')
 {
+
+   \App\Models\Sms::create([
+        'mobile'=>$mobile,
+        'messageText'=>$message,
+        'number'=>'10008218',
+        'type'=>'send']);
+
     $message=$message . PHP_EOL.'لغو11';
         $response = \Illuminate\Support\Facades\Http::withHeaders([
         'Accept' => 'text/plain',
