@@ -36,6 +36,13 @@ class SendSMS implements ShouldQueue
                 foreach ($data['data'] as $item) {
                     $item['type']='receive';
                     preg_match_all('/\d+/', $item['messageText'], $matches);
+                    $prefix= getOperator($item['mobile']);
+                    if ($prefix)
+                    {
+                        $item['operator_id']=$prefix->operator_id;
+                    }
+                        \App\Models\Sms::create($item);
+
                     if (isset($matches[0]) and isset($matches[0][0]))
                     {
 
@@ -67,8 +74,6 @@ class SendSMS implements ShouldQueue
                                 if ($giftCode->used==0)
                                 {
 
-                                    $prefix= getOperator($item['mobile']);
-
                                     if ($prefix)
                                     {
                                         $charge=\App\Models\ChargeCode::where('used',0)->where('operator_id',$prefix->operator_id)->first();
@@ -77,7 +82,6 @@ class SendSMS implements ShouldQueue
                                             sendSMS($message,$item['mobile']);
                                             $charge->update(['used'=>1,'phone_used'=>$item['mobile']]);
                                             $giftCode->update(['used'=>1,'phone_used'=>$item['mobile']]);
-                                            $item['operator_id']=$prefix->operator_id;
                                         }
 
                                     }
@@ -86,11 +90,6 @@ class SendSMS implements ShouldQueue
                                     sendSMS($message,$item['mobile']);
                                 }
                             }
-
-
-                    }else{
-
-                        $sms=\App\Models\Sms::create($item);
                     }
                 }
             }

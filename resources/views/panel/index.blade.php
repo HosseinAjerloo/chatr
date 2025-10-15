@@ -121,71 +121,118 @@
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{\Morilog\Jalali\Jalalian::forge($pm->create)->format('Y/m/d H:i:s')}}
+                            {{\Morilog\Jalali\Jalalian::forge($pm->created_at)->format('Y/m/d H:i:s')}}
+
                         </th>
                         <td class="px-6 py-4">{{$pm->mobile}}</td>
 
                         <td class="px-6 py-4">
-                            @if(getOperator($pm->mobile))
-                                {{getOperator($pm->mobile)->operator->name??'-'}}
 
-                            @else
-                                --
-                            @endif
+                            {{$pm->operator->name??'--'}}
 
                         </td>
-                        <td class="px-6 py-4 text-left">
-                            مشتری گرامی، گارانتی شما در تاريخ ١٤٠٤-٠٧-٠٧ فعال شد. با
-                            تشکر! گروه بازرگانی چتر
-                        </td>
+
+                        @if($pm->type=='receive')
+                            <td class="px-6 py-4 text-left">
+                                {{$pm->messageText??''}}
+
+                            </td>
+                        @else
+                            <td class="px-6 py-4 text-left">
+                                ---
+                            </td>
+                        @endif
+                        @if($pm->type=='send')
+                            <td class="px-6 py-4 text-left">
+                                {{$pm->messageText??''}}
+
+                            </td>
+                        @else
+                            <td class="px-6 py-4 text-left">
+                                ---
+                            </td>
+                        @endif
+
+
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
         <div class="flex items-center justify-center mt-4 w-full">
-            <ul
-                class="flex w-full sm:w-2/3 lg:w-1/2 xl:w-[40%] 2xl:w-[34%] items-center space-x-2 px-6 py-2 rounded-2xl shadow shadow-md shadow-black/20 border border-black/50">
+            <ul style="direction: ltr"
+                class="flex w-full justify-center sm:w-2/3 lg:w-1/2 xl:w-[40%] 2xl:w-[34%] items-center space-x-2 px-6 py-2 rounded-2xl shadow shadow-md shadow-black/20 border border-black/50">
                 <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    <
+                    class="font-semibold flex items-center justify-center   text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                    @if($sms->currentPage() > 1)
+                        <a href="{{ $sms->previousPageUrl() }}" class="flex items-center justify-center  ">
+                            <i class="fa-solid fa-angle-left flex items-center justify-center  "></i>
+                        </a>
+                    @else
+                        <span class="flex items-center justify-center  "><i class="fa-solid fa-angle-left"></i></span>
+                    @endif
                 </li>
+                @if($sms->currentPage() > 4)
+                    <li
+                        class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                        <a href="{{ $sms->url(1) }}">1</a>
+                    </li>
+                    <li
+                        class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                        <a href="{{ $sms->url(2) }}">2</a>
+                    </li>
+                    <li>...</li>
+
+                @endif
+
+                @for($i = max(1, $sms->currentPage() - 2); $i < $sms->currentPage(); $i++)
+
+                    <li
+                        class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                        <a href="{{ $sms->url($i) }}">{{ $i }}</a>
+                    </li>
+                @endfor
+
+
                 <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    1
+                    class="activePage font-semibold text-lg  eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                    {{ $sms->currentPage() }}
                 </li>
-                <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    2
-                </li>
-                <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    3
-                </li>
-                <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    chartFront.
-                </li>
-                <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    30
-                </li>
-                <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    31
-                </li>
-                <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    32
-                </li>
-                <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    33
-                </li>
-                <li
-                    class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
-                    >
-                </li>
+
+
+                @for($i = $sms->currentPage() + 1; $i <= min($sms->lastPage(), $sms->currentPage() + 2); $i++)
+                    <li
+                        class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                        <a href="{{ $sms->url($i) }}">{{ $i }}</a>
+                    </li>
+                @endfor
+
+                @if($sms->currentPage() < $sms->lastPage() - 3)
+                    <li>...</li>
+                    <li
+                        class="font-semibold text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                        <a href="{{ $sms->url($sms->lastPage()) }}">{{ $sms->lastPage() }}</a>
+                    </li>
+                @endif
+
+
+                @if($sms->currentPage() < $sms->lastPage())
+
+                    <li
+                        class="font-semibold flex items-center justify-center  text-lg text-black eleHover p-2 w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                        <a href="{{ $sms->nextPageUrl() }}" class="flex items-center justify-center ">
+                            <i class="fa-solid fa-angle-right flex items-center justify-center "></i>
+                        </a>
+                    </li>
+
+                @else
+                    <li
+                        class="font-semibold flex items-center justify-center text-lg text-black eleHover  w-[7%] sm:w-[15%] h-[30px] rounded-full hover:text-white transition-all duration-700 flex items-center justify-center">
+                        <span class="flex items-center justify-center  "><i class="fa-solid fa-angle-right"></i></span>
+                    </li>
+
+                @endif
+
             </ul>
         </div>
     </article>
@@ -226,116 +273,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="bg-white border-b border-gray-200">
+
+                    @foreach($groupBtUser as $key=> $group)
+                       <tr class="bg-white border-b border-gray-200">
                         <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            1
+                            {{$key+1}}
                         </td>
                         <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
+                            {{$group->mobile??''}}
                         </td>
                         <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            2
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
+                            {{$group->total??''}}
                         </td>
                     </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            3
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            4
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            5
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            6
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            7
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            8
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            9
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            10
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            09186414452
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            34
-                        </td>
-                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -358,15 +309,14 @@
             class="flex items-center space-x-2 bg-white border border-dcdde1 rounded-lg p-6 w-full xl:w-[57%] mb-2">
             <img src="chartFront/assets/icons/Asset15.svg" alt="" class="w-5"/>
             <p class="font-bold">
-                تا کنکون تعداد ١٢٤٠ نفر گارانتی محصول خود را فعال کردند. تا
-                کنکون تعداد ٥٦٢٣ نفر از کوپن شارژ خود کردند.
+                تا کنکون تعداد  {{\App\Models\Warrantye::where('used',1)->count()}} نفر گارانتی محصول خود را فعال کردند.
             </p>
         </div>
         <div
             class="flex items-center space-x-2 bg-white border border-dcdde1 rounded-lg p-6 w-full xl:w-[42%] mb-2">
             <img src="chartFront/assets/icons/Asset15.svg" alt="" class="w-5"/>
             <p class="font-bold">
-                تا کنکون تعداد ٥٦٢٣ نفر از کوپن شارژ خود کردند.
+                تا کنکون تعداد {{\App\Models\GiftCode::where('used',1)->count()}} نفر از کوپن شارژ خود استفاده  کردند.
             </p>
         </div>
     </article>
@@ -378,4 +328,11 @@
             حقوقی دارد.
         </p>
     </article>
+@endsection
+@section('script-tag')
+    <script>
+        let dataBar=@json($groupDaySend);
+        let dataPieres=@json($groupOerator);
+    </script>
+
 @endsection
