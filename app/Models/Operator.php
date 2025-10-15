@@ -14,4 +14,7 @@ class Operator extends Model
     {
         return $this->hasMany(Prefix::class,'operator_id');
     }
+    public function chargeCode(){
+        return $this->hasMany(ChargeCode::class,'operator_id');
+    }
 }
