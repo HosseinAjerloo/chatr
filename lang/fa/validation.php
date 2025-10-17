@@ -240,7 +240,8 @@ return [
         'prefix_num'=>'پیش شماره',
         'operator_id'=>'اپراتور',
         'city_id'=>'شهرها',
-        'charge_code'=>'آپلود کارت شارژ'
+        'charge_code'=>'آپلود کارت شارژ',
+        'warrantye'=>'گارانتی'
     ],
 
 ];

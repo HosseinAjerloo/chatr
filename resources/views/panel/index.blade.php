@@ -73,14 +73,18 @@
                 از (روز-ماه-سال):
             </p>
             <input type="text"
-                   class="py-1.5 px-2 border border-dcdde1 outline-none text-gray-600 rounded-xl w-full sm:w-[30%] xl:w-[25%] 2xl:w-[20%]"
-                   placeholder="1404-01-01"/>
+                   class="start py-1.5 px-2 border border-dcdde1 outline-none text-gray-600 rounded-xl w-full sm:w-[30%] xl:w-[25%] 2xl:w-[20%]"
+            />
+            <input type="text" name="start_date" class="start_date hidden">
+            <input type="text" name="end_date" class="end_date hidden">
+
             <span class="font-semibold text-lg w-full sm:w-[auto] mt-2 sm:mt-0 flex">تا</span>
             <input type="text"
-                   class="py-1.5 px-2 border border-dcdde1 outline-none text-gray-600 rounded-xl w-full sm:w-[30%] xl:w-[25%] 2xl:w-[20%]"
+                   class="end py-1.5 px-2 border border-dcdde1 outline-none text-gray-600 rounded-xl w-full sm:w-[30%] xl:w-[25%] 2xl:w-[20%]"
                    placeholder="1404-01-01"/>
+
             <button
-                class="py-2 px-4 bg-2e799a border border-dcdde1 text-md text-white rounded-lg transition-all duration-700 eleHover mt-2 sm:m-0">
+                class="get_message py-2 px-4 bg-2e799a border border-dcdde1 text-md text-white rounded-lg transition-all duration-700 eleHover mt-2 sm:m-0">
                 دریافت فایل
             </button>
         </div>
@@ -95,10 +99,10 @@
         </div>
         <div class="flex items-center justify-end space-x-2 w-full md:w-[60%]">
             <input type="text"
-                   class="w-full md:w-[50%] xl:w-[38%] py-1.5 px-2 border border-dcdde1 outline-none text-gray-600 rounded-xl"
+                   class="searchBox w-full md:w-[50%] xl:w-[38%] py-1.5 px-2 border border-dcdde1 outline-none text-gray-600 rounded-xl"
                    placeholder="جستجودرتعامل ها"/>
             <button
-                class="py-1.5 px-6 bg-2e799a border border-dcdde1 text-sm text-white rounded-lg transition-all duration-700 eleHover">
+                class="search py-1.5 px-6 bg-2e799a border border-dcdde1 text-sm text-white rounded-lg transition-all duration-700 eleHover">
                 جستجو
             </button>
         </div>
@@ -132,26 +136,15 @@
 
                         </td>
 
-                        @if($pm->type=='receive')
-                            <td class="px-6 py-4 text-left">
-                                {{$pm->messageText??''}}
 
-                            </td>
-                        @else
-                            <td class="px-6 py-4 text-left">
-                                ---
-                            </td>
-                        @endif
-                        @if($pm->type=='send')
-                            <td class="px-6 py-4 text-left">
-                                {{$pm->messageText??''}}
+                        <td class="px-6 py-4 text-left">
+                            {{$pm->messageText??'--'}}
 
-                            </td>
-                        @else
-                            <td class="px-6 py-4 text-left">
-                                ---
-                            </td>
-                        @endif
+                        </td>
+                        <td class="px-6 py-4 text-left">
+                            {{$pm->message_send??''}}
+
+                        </td>
 
 
                     </tr>
@@ -275,17 +268,17 @@
                     <tbody>
 
                     @foreach($groupBtUser as $key=> $group)
-                       <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            {{$key+1}}
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            {{$group->mobile??''}}
-                        </td>
-                        <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
-                            {{$group->total??''}}
-                        </td>
-                    </tr>
+                        <tr class="bg-white border-b border-gray-200">
+                            <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
+                                {{$key+1}}
+                            </td>
+                            <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
+                                {{$group->mobile??''}}
+                            </td>
+                            <td class="px-6 py-3 text-center border border-1 border-dcdde1 font-bold">
+                                {{$group->total??''}}
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
@@ -309,14 +302,14 @@
             class="flex items-center space-x-2 bg-white border border-dcdde1 rounded-lg p-6 w-full xl:w-[57%] mb-2">
             <img src="chartFront/assets/icons/Asset15.svg" alt="" class="w-5"/>
             <p class="font-bold">
-                تا کنکون تعداد  {{\App\Models\Warrantye::where('used',1)->count()}} نفر گارانتی محصول خود را فعال کردند.
+                تا کنکون تعداد {{\App\Models\Warrantye::where('used',1)->count()}} نفر گارانتی محصول خود را فعال کردند.
             </p>
         </div>
         <div
             class="flex items-center space-x-2 bg-white border border-dcdde1 rounded-lg p-6 w-full xl:w-[42%] mb-2">
             <img src="chartFront/assets/icons/Asset15.svg" alt="" class="w-5"/>
             <p class="font-bold">
-                تا کنکون تعداد {{\App\Models\GiftCode::where('used',1)->count()}} نفر از کوپن شارژ خود استفاده  کردند.
+                تا کنکون تعداد {{\App\Models\GiftCode::where('used',1)->count()}} نفر از کوپن شارژ خود استفاده کردند.
             </p>
         </div>
     </article>
@@ -331,8 +324,79 @@
 @endsection
 @section('script-tag')
     <script>
-        let dataBar=@json($groupDaySend);
-        let dataPieres=@json($groupOerator);
+        let dataBar =@json($groupDaySend);
+        let dataPieres =@json($groupOerator);
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.start').persianDatepicker({
+                observer: true,
+                format: 'YYYY/MM/DD',
+                altField: '.start_date'
+            });
+            $('.end').persianDatepicker({
+                observer: true,
+                format: 'YYYY/MM/DD',
+                altField: '.end_date'
+            });
+
+        })
+
+
+    </script>
+
+    <script>
+        let get_message=document.querySelector('.get_message');
+        get_message.addEventListener('click',function (){
+            let start=document.querySelector('.start_date');
+            let end=document.querySelector('.end_date');
+            if(end.value.length>0 && start.value.length>0)
+            {
+                const data={
+                    'start_date':start.value,
+                    'end_date':end.value,
+                }
+                let sendRequest=fetch('{{route('test')}}',{
+                    method:'POST',
+                    body:JSON.stringify(data),
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}",
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+
+                    }
+                });
+                sendRequest.then(response=>{
+                   if(response.status!=200)
+                       throw new Error('con not download');
+                        return response.blob();
+                }).then(result=>{
+                    const createObjectUrl=URL.createObjectURL(result);
+                    const link=document.createElement('a');
+                    link.href=createObjectUrl;
+                    link.download='sms.xlsx';
+                    link.classList.add('hidden');
+                    link.click();
+                    link.remove();
+                    URL.revokeObjectURL(createObjectUrl)
+                })
+            }
+        })
+    </script>
+    <script>
+        let searchBtn=document.querySelector('.search');
+        let searchBox=document.querySelector('.searchBox');
+        searchBtn.addEventListener('click',function (){
+           if (searchBox.value.length==0)
+           {
+               searchBox.value='';
+
+           }
+            const url=new URL(window.location);
+            url.searchParams.set('text',searchBox.value);
+            window.location.href=url.toString();
+        });
     </script>
 
 @endsection

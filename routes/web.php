@@ -1,12 +1,22 @@
 <?php
 
+use App\Exports\UsersExport;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::middleware('guest')->prefix('login')->name('login.')->group(function (){
     Route::get('',[App\Http\Controllers\Auth\AuthController::class,'index'])->name('index');
     Route::post('',[App\Http\Controllers\Auth\AuthController::class,'login'])->name('login');
+});
+Route::get('logout',function (){
+    $user=\Illuminate\Support\Facades\Auth::user();
+    if ($user)
+    {
+        \Illuminate\Support\Facades\Auth::logout();
+        return redirect()->route('panel.index');
+    }
 });
 Route::middleware(['auth'])->name('panel.')->group(function () {
     Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->name('index');
@@ -29,7 +39,7 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
     });
 
 
-    Route::prefix('config')->name('config.')->group(function () {
+    Route::prefix('settings')->name('config.')->group(function () {
         Route::get('', [App\Http\Controllers\Config\ConfigController::class, 'index'])->name('index');
         Route::post('off', [App\Http\Controllers\Config\ConfigController::class, 'off'])->name('off');
         Route::post('upload-baner', [App\Http\Controllers\Config\ConfigController::class, 'uploadBaner'])->name('upload_baner');
@@ -50,11 +60,12 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
 
 
 });
-Route::get('test',function (){
+Route::post('test',function (\Illuminate\Http\Request  $request){
+    return Excel::download(new \App\Exports\SmsExport(), 'sms.xlsx');
 
 
 
-});
+})->name('test');
 
 
 

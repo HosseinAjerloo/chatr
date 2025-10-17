@@ -1,15 +1,21 @@
 <?php
-function sendSMS($message='',$mobile='091864144452')
+function sendSMS($message = '', $mobile = '091864144452', $modal = null)
 {
 
-   \App\Models\Sms::create([
-        'mobile'=>$mobile,
-        'messageText'=>$message,
-        'number'=>'10008218',
-        'type'=>'send']);
+    if (!$mobile) {
+        \App\Models\Sms::create([
+            'mobile' => $mobile,
+            'messageText' => $message,
+            'number' => '10008218',
+            'type' => 'send']);
+    } else {
+        $modal->update([
+            'message_send'=>$message
+           ]);
+    }
 
-    $message=$message . PHP_EOL.'لغو11';
-        $response = \Illuminate\Support\Facades\Http::withHeaders([
+    $message = $message . PHP_EOL . 'لغو11';
+    $response = \Illuminate\Support\Facades\Http::withHeaders([
         'Accept' => 'text/plain',
         'X-API-KEY' => 'gAVlVd4hrVs5Q2jKBifSc8xXUO4WJNfy1QbVsQYPP1KaRwpv',
         'Content-Type' => 'application/json',
@@ -22,9 +28,10 @@ function sendSMS($message='',$mobile='091864144452')
         'Mobiles' => [$mobile],
     ]);
 }
+
 function getOperator($mobile)
 {
-    $prefixUser=substr($mobile,0,3);
-    $prefix=\App\Models\Prefix::where('prefix_num',$prefixUser)->first();
+    $prefixUser = substr($mobile, 0, 3);
+    $prefix = \App\Models\Prefix::where('prefix_num', $prefixUser)->first();
     return $prefix;
 }

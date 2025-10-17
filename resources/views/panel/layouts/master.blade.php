@@ -16,9 +16,9 @@
         </section>
     </main>
     @yield(section: 'script-tag')
-    @include('panel.layouts.script')
     @include('panel.toast.error')
     @include('panel.sweet.success')
+    @include('panel.layouts.script')
 </body>
 
 </html>

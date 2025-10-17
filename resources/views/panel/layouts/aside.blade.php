@@ -31,23 +31,24 @@
                 <ul class="flex w-full items-center justify-center flex-col space-y-4">
                     <li
                         class=" @if(\Illuminate\Support\Facades\Route::current()->getName()== 'panel.index') bg-012b38 @else bg-2e799a  @endif w-full py-4 flex items-center justify-center text-white font-[500] eleHover transition-all duration-700 rounded-lg hover:scale-[1.05] text-lg">
-                        <a href="{{route('panel.index')}}">داشبورد</a>
+
+                        <a href="{{route('panel.index')}}" class="w-full h-full flex items-center justify-center">داشبورد</a>
                     </li>
                     <li
                         class="@if(\Illuminate\Support\Facades\Route::current()->getName()== 'panel.upload_excel.index') bg-012b38 @else bg-2e799a  @endif w-full py-4 flex items-center justify-center text-white font-[500] eleHover transition-all duration-700 rounded-lg hover:scale-[1.05]">
-                        <a href="{{route('panel.upload_excel.index')}}">آپلود اکسل ها</a>
+                        <a href="{{route('panel.upload_excel.index')}}" class="flex items-center justify-center w-full h-full">آپلود اکسل ها</a>
                     </li>
                     <li
                         class="@if(\Illuminate\Support\Facades\Route::current()->getName()== 'panel.operator.index') bg-012b38  @else bg-2e799a  @endif  w-full py-4 flex items-center justify-center text-white font-[500] eleHover transition-all duration-700 rounded-lg hover:scale-[1.05] text-lg">
-                        <a href="{{route('panel.operator.index')}}">مدیریت پیش شماره ها</a>
+                        <a href="{{route('panel.operator.index')}}" class="flex items-center justify-center w-full h-full">مدیریت پیش شماره ها</a>
                     </li>
                     <li
                         class="@if(str_contains(\Illuminate\Support\Facades\Route::current()->getName(),'user')) bg-012b38 @else bg-2e799a  @endif w-full py-4 flex items-center justify-center text-white font-[500] eleHover transition-all duration-700 rounded-lg hover:scale-[1.05] text-lg">
-                        <a href="{{ route('panel.user.index') }}">مدیریت کاربران</a>
+                        <a href="{{ route('panel.user.index') }}" class="flex items-center justify-center w-full h-full">مدیریت کاربران</a>
                     </li>
                     <li
                         class="@if(\Illuminate\Support\Facades\Route::current()->getName()== 'panel.config.index') bg-012b38 @else bg-2e799a  @endif w-full py-4 flex items-center justify-center text-white font-[500] eleHover transition-all duration-700 rounded-lg hover:scale-[1.05] text-lg">
-                        <a href="{{route('panel.config.index')}}">تنظیمات سامانه</a>
+                        <a href="{{route('panel.config.index')}}" class="flex items-center justify-center w-full h-full">تنظیمات سامانه</a>
                     </li>
                 </ul>
             </article>

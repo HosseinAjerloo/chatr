@@ -11,10 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->redirectGuestsTo('login');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (Exception $e){
-            if (!\Illuminate\Support\Facades\Auth::user())
-                return redirect()->route('login.index');
+
         });
     })->create();

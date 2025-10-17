@@ -5,7 +5,6 @@
 <script src="{{ asset('chartFront/assets/js/saidbar/saidBar.js') }}"></script>
 <script src="{{ asset('chartFront/toast/toastify-js.js') }}"></script>
 <script src="{{ asset('chartFront/sweetAlert/sweetalert2@11.js') }}"></script>
-<script src="{{ asset('chartFront/assets/FontAwesome.Pro.6.7.1/Web/js/all.min.js') }}"></script>
 
 
 <script>

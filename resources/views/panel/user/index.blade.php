@@ -214,7 +214,7 @@
 @section('script-tag')
 
     <script>
-        jQuery(document).ready(function($) {
+        $(document).ready(function($) {
             $('.city').select2({
                 dir: 'rtl',
                 width: '100%'

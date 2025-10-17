@@ -11,21 +11,19 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithSkipDuplicates;
 
-class CopenExcel implements ToModel, WithHeadingRow, WithBatchInserts, WithSkipDuplicates,ShouldQueue,WithChunkReading
+class CopenExcel implements ToModel, WithHeadingRow, WithBatchInserts, WithSkipDuplicates, ShouldQueue, WithChunkReading
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
-        $serial = $row['serial'];
-
-
-        return GiftCode::updateOrCreate(
-            ['code' => $serial],
-            ['code' => $serial]);
+        $serial = trim((string)$row['serial']);
+        $giftCode = GiftCode::where('code')->first();
+        if (!$giftCode)
+            return GiftCode::create(['code' => $serial]);
     }
 
     public function chunkSize(): int

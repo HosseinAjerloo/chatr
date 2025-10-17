@@ -37,7 +37,7 @@
             </div>
 
             <div class="w-[90%] flex items-center justify-center  cursor-pointer">
-                <button class="py-2 px-8 bg-gradient-to-r from-rose-900/70 from-[30%]  to-sky-700 w-1/2 rounded-lg text-lg text-white font-bold" >ورود</button>
+                <button class="py-2 px-8 bg-gradient-to-r from-rose-900/70 from-[30%]  to-sky-700 w-1/2 rounded-lg text-lg text-white font-bold cursor-pointer" >ورود</button>
             </div>
         </form>
     </article>

@@ -28,7 +28,8 @@
                         </article>
                     </div>
                     <div
-                        class="w-full sm:w-1/2 flex items-center space-x-4 md:border-r md:border-r-2 border-dcdde1 px-6 md:w-[25%]">
+                        class="relative w-full sm:w-1/2 flex items-center space-x-4 md:border-r md:border-r-2 border-dcdde1 px-6 md:w-[25%] bg-rose-500">
+                        <div class="absolute w-full left-0 bottom-0 h-[100px] bg-green-500"></div>
                         <img src="{{ asset('chartFront/assets/images/profile.jpg') }}" alt="day"
                             class="w-[60px] h-[60px] border border-2 border-black/80 bg-center flex rounded-full" />
                         <div>

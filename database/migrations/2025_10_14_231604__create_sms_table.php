@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('mobile')->nullable();
             $table->string('messageText')->nullable();
             $table->string('number')->nullable();
-            $table->enum('type',['send','receive'])->nullable();
+            $table->string('message_send')->nullable();
             $table->foreignId('operator_id')->nullable()->constrained('operators')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
             $table->softDeletes();
