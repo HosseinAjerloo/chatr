@@ -17,7 +17,7 @@ Route::get('logout',function (){
         \Illuminate\Support\Facades\Auth::logout();
         return redirect()->route('panel.index');
     }
-});
+})->name('logout');
 Route::middleware(['auth'])->name('panel.')->group(function () {
     Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->name('index');
 
@@ -30,6 +30,8 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
         Route::put('/update/{user}', [App\Http\Controllers\User\UserController::class, 'update'])->name('update');
         Route::get('/destroy/{user}', [App\Http\Controllers\User\UserController::class, 'destroy'])->name('destroy');
         Route::post('/export-excel', [App\Http\Controllers\User\UserController::class, 'exportExcel'])->name('export_excel');
+        Route::get('/edit-profile/{user}', [App\Http\Controllers\User\UserController::class, 'editProfile'])->name('edit_profile');
+        Route::put('/edit-profile/{user}', [App\Http\Controllers\User\UserController::class, 'updateProfile'])->name('update_profile');
     });
 
     Route::prefix('operator')->name('operator.')->group(function () {

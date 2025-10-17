@@ -40,3 +40,24 @@
         })
     }
 </script>
+
+<script>
+    const profile=document.querySelector('.profile');
+        profile.addEventListener('click',function (e){
+           const elem = e.currentTarget.firstElementChild;
+           if(elem.classList.contains('opacity-0')){
+               elem.classList.remove('opacity-0');
+               elem.classList.add('opacity-100');
+               elem.classList.remove('translate-y-[40px]');
+               elem.classList.remove('-z-[10]');
+               elem.classList.add('z-[10]');
+           }else {
+               elem.classList.add('opacity-0');
+               elem.classList.remove('opacity-100');
+               elem.classList.add('translate-y-[40px]');
+               elem.classList.add('-z-[10]');
+               elem.classList.remove('z-[10]');
+
+           }
+        })
+</script>

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Role;
 use App\Services\ImageService\ImageService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -140,5 +141,42 @@ class UserController extends Controller
     {
         return Excel::download(new UsersExport, 'users.xlsx');
 
+    }
+    public function editProfile(){
+        $brands = Brand::where('status', 'active')->get();
+        $cities=City::where('status','active')->get();
+        $roles = Role::where('status', 'active')->get();
+        $user=Auth::user();
+        return view('panel.user.profile',compact('user','brands','cities','roles'));
+    }
+    public function updateProfile(UserRequest $request, User $user, ImageService $imageService)
+    {
+        try {
+            $inputs = $request->all();
+            DB::beginTransaction();
+            if ($request->hasFile('photo')) {
+                $path = $user->photo()->first();
+
+                if ($path and public_path($user->photo?->path)) {
+                    $rootFile = public_path($user->photo?->path);
+                    $imageService->deleteImage($rootFile);
+                }
+
+                $imageService->setRootFolder('users' . DIRECTORY_SEPARATOR . 'avatar');
+                $path = $imageService->saveImage($request->file('photo'));
+                if ($path) {
+                    $user->photo()->updateOrCreate(['fileable_id' => $user->id, 'fileable_type' => get_class($user)], ['path' => $path]);
+                } else {
+                    return redirect()->back()->withErrors(['user-error' => 'در بروزرسانی پروفایل کاربر مشکل ایجاد شد لطفا با پشیبانی تماس حاصل فرمایید.']);
+                }
+            }
+            $user->update($inputs);
+
+            DB::commit();
+            return redirect()->route('panel.user.index')->with(['success' => 'عملیات بروز‌رسانی موفق بود؛ اطلاعات شما با موفقیت به‌روز شد']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['user-error' => 'روند ذخیره سازی با مشکل روبه رو شد لطفا با پشتیبانی تماس بگیرد']);
+        }
     }
 }

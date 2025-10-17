@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('panel.layouts.aside', function ($view) {
+        View::composer(['panel.layouts.aside','panel.layouts.header'], function ($view) {
             $activeUsers = DB::table('sessions')
                 ->distinct()
                 ->join('users', 'sessions.user_id', '=', 'users.id')

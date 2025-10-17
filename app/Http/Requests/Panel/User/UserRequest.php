@@ -4,6 +4,7 @@ namespace App\Http\Requests\Panel\User;
 
 use App\Rules\Nationality;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
@@ -24,7 +25,7 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-
+        $currentRoute=Route::current();
         return [
             'name'=>'required|min:0',
             'family'=>'required|min:0',
@@ -33,8 +34,8 @@ class UserRequest extends FormRequest
             'city_id'=>'required|min:0|exists:cities,id',
             'nationality'=>['required',new Nationality,Rule::unique('users','nationality')->ignore($this->user)],
             'phone_number'=>['required','min:11','max:11',Rule::unique('users','phone_number')->ignore($this->user)],
-            'brand_id'=>'required|exists:brands,id',
-            'role_id'=>'required|exists:roles,id',
+            'brand_id'=>$currentRoute->getName()=='panel.user.update_profile'?'nullable':'required'.'|exists:brands,id',
+            'role_id'=>$currentRoute->getName()=='panel.user.update_profile'?'nullable':'required'.'|exists:roles,id',
             'password'=>['required',Password::min(8)],
             'photo'=>'nullable|mimes:png,jpg,jpeg|max:5000'
         ];
