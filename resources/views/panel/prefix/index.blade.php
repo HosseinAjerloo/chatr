@@ -12,12 +12,12 @@
             </div>
             @foreach($operators as $operator)
                 <article class="mt-4" >
-                    <div class="flex items-center">
+                    <a href="{{route('panel.operator.edit',$operator)}}" class="flex items-center cursor-pointer prefix-title" data-name="{{$operator->name}}">
                         <h1 class="font-bold text-122e4d text-xl">
                             پیش شماره های
                             {{$operator->name}}
                         </h1>
-                    </div>
+                    </a>
                     <div class="mt-4 flex items-center flex-wrap space-x-1.5 "
                          id="operator-{{$operator->id}}">
                         @foreach($operator->prefix as $prefix)
@@ -49,6 +49,7 @@
                         <h1 class="font-[600] text-122e4d text-lg">
                             نام اپراتور را وارد کنید :
                         </h1>
+                        <span class="cursor-pointer">لغو</span>
                     </div>
                     <div class="flex items-center space-x-2 w-full w-[56%]">
                         <input
@@ -228,4 +229,5 @@
         addOperator();
         addPrefix();
     </script>
+
 @endsection

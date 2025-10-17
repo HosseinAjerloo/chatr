@@ -31,6 +31,7 @@ class PanelController extends Controller
             ->orderBy('date', 'asc')
             ->get()->toArray();
 
+
         $groupBtUser= \App\Models\Sms::select(
             DB::raw('mobile'),
             DB::raw('COUNT(*) as total')

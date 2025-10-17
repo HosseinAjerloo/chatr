@@ -56,24 +56,44 @@ class OperatorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Operator $operator)
     {
-        //
+        return view('panel.prefix.editOperator',compact('operator'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Operator $operator)
     {
-        //
+        $request->validate(
+            [
+                'name'=>'required|unique:operators,name,'.$operator->id
+            ]);
+        $operator->update($request->all());
+        return redirect()->route('panel.operator.index')->with(['success'=>'نام اپراتور باموفقیت بروز رسانی شد']);
+    }
+    public function updatePrefix(Request $request, Prefix $prefix)
+    {
+        $request->validate(
+            [
+                'prefix_num'=>'required'
+            ]);
+        $prefix->update($request->all());
+        return redirect()->route('panel.operator.index')->with(['success'=>'پیش شماره اپراتور باموفقیت بروز رسانی شد']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Operator $operator)
     {
-        //
+        $operator->delete();
+        return redirect()->route('panel.operator.index')->with(['success'=>' اپراتور باموفقیت حذف شد']);
+    }
+    public function destroyPrefix(Prefix $prefix)
+    {
+        $prefix->delete();
+        return redirect()->route('panel.operator.index')->with(['success'=>' پیش شماره باموفقیت حذف شد']);
     }
 }

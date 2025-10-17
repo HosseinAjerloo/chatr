@@ -10,6 +10,10 @@ Route::middleware('guest')->prefix('login')->name('login.')->group(function (){
     Route::get('',[App\Http\Controllers\Auth\AuthController::class,'index'])->name('index');
     Route::post('',[App\Http\Controllers\Auth\AuthController::class,'login'])->name('login');
 });
+
+Route::fallback(function (){
+    abort(404);
+});
 Route::get('logout',function (){
     $user=\Illuminate\Support\Facades\Auth::user();
     if ($user)
@@ -38,6 +42,11 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
         Route::get('/', [App\Http\Controllers\Operator\OperatorController::class, 'index'])->name('index');
         Route::post('store', [App\Http\Controllers\Operator\OperatorController::class, 'store'])->name('store');
         Route::post('store-prefix', [App\Http\Controllers\Operator\OperatorController::class, 'storePrefix'])->name('storePrefix');
+        Route::get('edit/{operator}', [App\Http\Controllers\Operator\OperatorController::class, 'edit'])->name('edit');
+        Route::put('update/{operator}', [App\Http\Controllers\Operator\OperatorController::class, 'update'])->name('update');
+        Route::put('update-prefix/{prefix}', [App\Http\Controllers\Operator\OperatorController::class, 'updatePrefix'])->name('update_prefix');
+        Route::get('delete/{operator}', [App\Http\Controllers\Operator\OperatorController::class, 'destroy'])->name('destroy');
+        Route::get('delete-prefix/{prefix}', [App\Http\Controllers\Operator\OperatorController::class, 'destroyPrefix'])->name('destroy_prefix');
     });
 
 
@@ -62,12 +71,8 @@ Route::middleware(['auth'])->name('panel.')->group(function () {
 
 
 });
-Route::post('test',function (\Illuminate\Http\Request  $request){
-    return Excel::download(new \App\Exports\SmsExport(), 'sms.xlsx');
 
 
-
-})->name('test');
 
 
 
