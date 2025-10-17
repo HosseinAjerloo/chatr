@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Panel;
 
+use App\Exports\SmsExport;
+use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Config;
 use App\Models\GiftCode;
@@ -11,6 +13,7 @@ use App\Models\Warrantye;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PanelController extends Controller
 {
@@ -54,5 +57,9 @@ class PanelController extends Controller
 
 
         return view('panel.index',compact('groupOerator','config','operators','warrantyes','giftCodes','sms','groupDaySend','groupBtUser'));
+    }
+    public function export()
+    {
+        return Excel::download(new SmsExport , 'users.xlsx');
     }
 }

@@ -24,6 +24,7 @@ Route::get('logout',function (){
 })->name('logout');
 Route::middleware(['auth'])->name('panel.')->group(function () {
     Route::get('', [App\Http\Controllers\Panel\PanelController::class, 'index'])->name('index');
+    Route::post('export', [App\Http\Controllers\Panel\PanelController::class, 'export'])->name('export');
 
 
     Route::prefix('user')->name('user.')->group(function () {

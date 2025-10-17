@@ -357,7 +357,7 @@
                     'start_date':start.value,
                     'end_date':end.value,
                 }
-                let sendRequest=fetch('{{route('test')}}',{
+                let sendRequest=fetch('{{route('panel.export')}}',{
                     method:'POST',
                     body:JSON.stringify(data),
                     headers: {
