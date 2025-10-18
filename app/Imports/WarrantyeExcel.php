@@ -21,7 +21,7 @@ class WarrantyeExcel implements ToModel, WithHeadingRow, WithBatchInserts, WithS
     public function model(array $row)
     {
         $serial = trim((string)$row['serial']);
-        $Warrantye = Warrantye::where('code')->first();
+        $Warrantye = Warrantye::where('code',$serial)->first();
         if (!$Warrantye)
             return Warrantye::create(['code' => $serial]);
     }

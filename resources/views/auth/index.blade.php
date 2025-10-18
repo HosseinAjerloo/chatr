@@ -13,7 +13,7 @@
 
 
 </head>
-<body >
+<body class="overflow-x-hidden">
 @include('panel.layouts.script')
 @include('panel.toast.error')
 <div class="w-full relative flex items-center justify-center h-screen bg-gradient-to-b from-[#261132] from-[52%] via-[#211f4a] via-[82%] to-[#7f8fc2] to-[130%]">

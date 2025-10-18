@@ -7,4 +7,4 @@ Schedule::command('queue:work --queue=default --stop-when-empty')->withoutOverla
 Schedule::command('schedule:cache-clear')->dailyAt('01:00');
 Schedule::job(new \App\Jobs\SendSMS)->everyMinute();
 Schedule::command('queue:work --queue=sms-send --stop-when-empty')->withoutOverlapping()->everyMinute();
-
+Schedule::command('queue:clear')->daily()->withoutOverlapping(); ;

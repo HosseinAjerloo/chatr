@@ -8,7 +8,7 @@
             </p>
         </div>
         @foreach($operators as $operator)
-            @if($operator->chargeCode()->where('used',0)->count()<=50)
+            @if($operator->chargeCode()->where('used',0)->count()<=200)
                 <div
                     class="p-3 rounded-xl space-y-1.5 w-full bg-fdf5e1 border-1 border-f79145 xl:w-[24%] sm:w-[49%] mb-2">
                     <div class="flex items-center space-x-2 w-full">

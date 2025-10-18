@@ -21,7 +21,7 @@ class CopenExcel implements ToModel, WithHeadingRow, WithBatchInserts, WithSkipD
     public function model(array $row)
     {
         $serial = trim((string)$row['serial']);
-        $giftCode = GiftCode::where('code')->first();
+        $giftCode = GiftCode::where('code',$serial)->first();
         if (!$giftCode)
             return GiftCode::create(['code' => $serial]);
     }
