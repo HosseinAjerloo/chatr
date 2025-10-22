@@ -55,7 +55,7 @@ class SendSMS implements ShouldQueue
 
                         if (!$warranty and !$giftCode)
                         {
-                            $message='مشترک گرامی کد ارسال شده توسط شما نیاز به برسی بیشتر دارد باتشکر گروه بازرگانی چتر';
+                            $message='کد ارسال شده نیاز به برسی بیشتر دارد.گروه بازرگانی چتر';
                             sendSMS($message,$item['mobile'],$sms);
                             continue;
                         }
@@ -64,10 +64,10 @@ class SendSMS implements ShouldQueue
                                 if($warranty->used==0)
                                 {
                                     $warranty->update(['phone_used'=>$item['mobile'],'used'=>1]);
-                                    $message="مشتری گرامی گارانتی شما در تاریخ ".PHP_EOL.$today.PHP_EOL."فعال شد باتشکر گروه بازرگانی چتر";
+                                    $message="همراه عزیز گروه بازرگانی چتر کدگارانتی شما فعال شد.";
                                     sendSMS($message,$item['mobile'],$sms);
                                 }else{
-                                    $message="مشتری گرامی گارانتی شما قبلا در تاریخ ".PHP_EOL.\Morilog\Jalali\Jalalian::forge($warranty->created_at).PHP_EOL."فعال شده است باتشکر گروه بازرگانی چتر";
+                                    $message="همراه عزیز گروه بازرگانی چتر ، کدگارانتی شما قبلا فعال شده است.";
                                     sendSMS($message,$item['mobile'],$sms);
                                 }
                             }
@@ -81,15 +81,15 @@ class SendSMS implements ShouldQueue
                                     {
                                         $charge=\App\Models\ChargeCode::where('used',0)->where('operator_id',$prefix->operator_id)->first();
                                         if ($charge){
-                                            $message="مشتری گرامی کد شارژ شما ".PHP_EOL.$charge->copen.PHP_EOL."میباشد باتشکر گروه بازرگانی چتر";
-                                            sendSMS($message,$item['mobile']);
+                                            $message=" کد شارژ شما ".PHP_EOL.$charge->copen.PHP_EOL."میباشد باتشکر گروه بازرگانی چتر";
+                                            sendSMS($message,$item['mobile'],$sms);
                                             $charge->update(['used'=>1,'phone_used'=>$item['mobile']]);
                                             $giftCode->update(['used'=>1,'phone_used'=>$item['mobile']]);
                                         }
 
                                     }
                                 }else{
-                                    $message="مشتری گرامی کد شارژ شما تکراری میباشد  ".PHP_EOL."باتشکر گروه بازرگانی چتر";
+                                    $message=" کد شارژ شما تکراری میباشد  ".PHP_EOL."باتشکر گروه بازرگانی چتر";
                                     sendSMS($message,$item['mobile'],$sms);
                                 }
                             }
