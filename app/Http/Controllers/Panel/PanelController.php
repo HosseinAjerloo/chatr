@@ -20,12 +20,15 @@ class PanelController extends Controller
     public function index()
     {
 
-        $config=Config::first();
-        $operators=Operator::where('status','active')->get();
-        $warrantyes=Warrantye::where('used',0)->get();
-        $giftCodes=giftCode::where('used',0)->get();
 
-        $sms=Sms::search()->paginate(15)->appends(\request()->query());
+        $config=Config::first();
+        $operators=Operator::where('status','active')->cursor();
+
+        $warrantyes=Warrantye::where('used',0)->cursor();
+
+        $giftCodes=giftCode::where('used',0)->cursor();
+
+        $sms=Sms::search()->orderBy('created_at','desc')->paginate(15)->appends(\request()->query());
         $groupDaySend = \App\Models\Sms::select(
             DB::raw('DATE(created_at) as date'),
             DB::raw('COUNT(*) as total')
@@ -57,6 +60,7 @@ class PanelController extends Controller
 
 
         return view('panel.index',compact('groupOerator','config','operators','warrantyes','giftCodes','sms','groupDaySend','groupBtUser'));
+
     }
     public function export()
     {

@@ -35,7 +35,7 @@ class ChargeCodeExcel implements ToModel, WithHeadingRow, WithBatchInserts, With
         $serial =trim((string) $row['serial']);
         $chargeCode=ChargeCode::where('copen',$serial)->first();
         if (!$chargeCode)
-        return ChargeCode::create(['copen' => $serial,'operator_id' => $this->operator]);
+            return ChargeCode::create(['copen' => $serial,'operator_id' => $this->operator]);
     }
 
     public function chunkSize(): int

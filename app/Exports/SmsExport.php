@@ -11,8 +11,8 @@ use Morilog\Jalali\Jalalian;
 class SmsExport implements FromCollection, WithHeadings, WithMapping
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         return Sms::search()->get();

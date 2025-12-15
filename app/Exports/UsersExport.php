@@ -18,7 +18,7 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
     {
         $users= User::with(['roles', 'brand']);
         return $users->when(request('brand_id'),function ($query,$value){
-           $query->where('brand_id',$value);
+            $query->where('brand_id',$value);
         })->when(request('city_id'),function ($query,$value){
             $query->where('city_id',$value);
         })->get();

@@ -65,7 +65,7 @@
                     <li
                         class="w-full flex items-center justify-flex text-black space-x-2 font-[500] border-b border-b-2 py-1 border-dcdde1">
                         <div class="w-[50px] h-[50px] border border-2 border-black rounded-full relative">
-                            <img src="{{ asset('chartFront/assets/images/profile.jpg') }}" alt="" class="rounded-full w-full h-full" />
+                            <img src="{{\App\Models\User::find($active->user_id)?->photo->path?asset(\App\Models\User::find($active->user_id)?->photo->path):asset('chartFront/assets/images/avatar.jpg')}}" alt="" class="rounded-full w-full h-full" />
                             <div
                                 class="absolute w-[16px] h-[16px] bg-3fb54a bottom-[2px] -left-[2px] border border-3 border-white rounded-full">
                             </div>

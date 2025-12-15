@@ -11,7 +11,7 @@ function sendSMS($message = '', $mobile = '091864144452', $modal = null)
     } else {
         $modal->update([
             'message_send'=>$message
-           ]);
+        ]);
     }
 
     $message = $message . PHP_EOL . 'لغو11';

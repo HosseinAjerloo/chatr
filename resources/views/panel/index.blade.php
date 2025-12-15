@@ -8,7 +8,7 @@
             </p>
         </div>
         @foreach($operators as $operator)
-            @if($operator->chargeCode()->where('used',0)->count()<=50)
+            @if($operator->chargeCode()->where('used',0)->count()<=200)
                 <div
                     class="p-3 rounded-xl space-y-1.5 w-full bg-fdf5e1 border-1 border-f79145 xl:w-[24%] sm:w-[49%] mb-2">
                     <div class="flex items-center space-x-2 w-full">
@@ -302,14 +302,14 @@
             class="flex items-center space-x-2 bg-white border border-dcdde1 rounded-lg p-6 w-full xl:w-[57%] mb-2">
             <img src="chartFront/assets/icons/Asset15.svg" alt="" class="w-5"/>
             <p class="font-bold">
-                تا کنکون تعداد {{\App\Models\Warrantye::where('used',1)->count()}} نفر گارانتی محصول خود را فعال کردند.
+                تا کنون تعداد {{\App\Models\Warrantye::where('used',1)->count()}} نفر گارانتی محصول خود را فعال کردند.
             </p>
         </div>
         <div
             class="flex items-center space-x-2 bg-white border border-dcdde1 rounded-lg p-6 w-full xl:w-[42%] mb-2">
             <img src="chartFront/assets/icons/Asset15.svg" alt="" class="w-5"/>
             <p class="font-bold">
-                تا کنکون تعداد {{\App\Models\GiftCode::where('used',1)->count()}} نفر از کوپن شارژ خود استفاده کردند.
+                تا کنون تعداد {{\App\Models\GiftCode::where('used',1)->count()}} نفر از کوپن شارژ خود استفاده کردند.
             </p>
         </div>
     </article>
@@ -368,9 +368,9 @@
                     }
                 });
                 sendRequest.then(response=>{
-                   if(response.status!=200)
-                       throw new Error('con not download');
-                        return response.blob();
+                    if(response.status!=200)
+                        throw new Error('con not download');
+                    return response.blob();
                 }).then(result=>{
                     const createObjectUrl=URL.createObjectURL(result);
                     const link=document.createElement('a');
@@ -388,11 +388,11 @@
         let searchBtn=document.querySelector('.search');
         let searchBox=document.querySelector('.searchBox');
         searchBtn.addEventListener('click',function (){
-           if (searchBox.value.length==0)
-           {
-               searchBox.value='';
+            if (searchBox.value.length==0)
+            {
+                searchBox.value='';
 
-           }
+            }
             const url=new URL(window.location);
             url.searchParams.set('text',searchBox.value);
             window.location.href=url.toString();
