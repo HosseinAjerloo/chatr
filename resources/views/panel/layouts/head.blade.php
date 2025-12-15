@@ -6,6 +6,8 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" href="{{asset('chartFront/assets/icons/Asset1.svg')}}">
+
     <title>گروه بازرگانی چتر</title>
        @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('chartFront/assets/js/pr/persian-datepicker.min.css') }}">
